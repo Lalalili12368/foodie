@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('images/signup.jpg') no-repeat center center/cover;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .signup-box {
+            position: relative;
+            z-index: 1;
+            width: 340px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+            color: white;
+        }
+
+        input {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: gold;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ffcc00;
+        }
+
+        #msg {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-box">
+        <h1>Sign Up 🍔</h1>
+
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="signup()">Create Account</button>
+
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const supabase = window.supabase.createClient(
+                "https://liirxonksalpchfzrzaf.supabase.co",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpaXJ4b25rc2FscGNoZnpyemFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMjk0NDUsImV4cCI6MjA5MTYwNTQ0NX0._V-zCmAPmEw5QZjIKBCQh2uPShb2QhcbLPt03NISP2U"
+            );
+
+            let email = document.getElementById("email");
+            let password = document.getElementById("password");
+            let msg = document.getElementById("msg");
+
+            window.signup = async function () {
+
+                if (email.value == "" || password.value == "") {
+                    msg.innerText = "Fill both fields";
+                    msg.style.color = "yellow";
+                    return;
+                }
+
+                msg.innerText = "Creating account...";
+
+                let { error } = await supabase.auth.signUp({
+                    email: email.value,
+                    password: password.value
+                });
+
+                if (error) {
+                    msg.innerText = error.message;
+                    msg.style.color = "#ff4d4d";
+                    return;
+                }
+
+                window.location.href = "login.html";
+            };
+
+        });
+    </script>
+
+</body>
+
+</html>

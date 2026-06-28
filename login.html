@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            height: 100vh;
+            background: url('images/loginjpg.jpg') no-repeat center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .box {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 16px;
+            width: 320px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: gold;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ffcc00;
+        }
+
+        #msg {
+            font-size: 14px;
+            color: #ff4d4d;
+        }
+
+        a {
+            color: gold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="box">
+
+        <h1>Login 🍔</h1>
+
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <p id="msg"></p>
+
+        <p>
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </p>
+
+    </div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var supabase = window.supabase.createClient(
+                "https://liirxonksalpchfzrzaf.supabase.co",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpaXJ4b25rc2FscGNoZnpyemFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMjk0NDUsImV4cCI6MjA5MTYwNTQ0NX0._V-zCmAPmEw5QZjIKBCQh2uPShb2QhcbLPt03NISP2U"
+            );
+
+            window.login = async function () {
+
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var msg = document.getElementById("msg");
+
+                if (email == "" || password == "") {
+                    msg.innerText = "Fill both fields";
+                    msg.style.color = "yellow";
+                    return;
+                }
+
+                msg.innerText = "Logging in...";
+
+                try {
+
+                    var res = await supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+
+                    if (res.error) {
+                        msg.innerText = res.error.message;
+                        msg.style.color = "#ff4d4d";
+                        return;
+                    }
+
+                    msg.innerText = "Welcome back 😏";
+                    msg.style.color = "lightgreen";
+
+                    setTimeout(function () {
+                        window.location.href = "index.html";
+                    }, 600);
+
+                } catch (e) {
+                    msg.innerText = "Something went wrong. Try again.";
+                    msg.style.color = "#ff4d4d";
+                }
+            };
+
+        });
+
+    </script>
+
+</body>
+
+</html>

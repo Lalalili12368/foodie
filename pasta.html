@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pasta</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #111;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: #1f1f1f;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: gold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 225px;
+            object-fit: contain;
+            background: black;
+            border-radius: 10px;
+        }
+
+        .price {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: gold;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #ffcc00;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .back {
+            margin-top: 8px;
+            background: #333;
+            color: white;
+        }
+
+        .back:hover {
+            background: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="burgers.html">Burgers</a>
+        <a href="pizza.html">Pizza</a>
+        <a href="drinks.html">Drinks</a>
+        <a href="cart.html">Cart 🛒</a>
+    </nav>
+
+    <h1>🍝 Pasta</h1>
+
+    <div class="grid">
+
+        <div class="card">
+            <img src="images/pasta1.jpg">
+            <div class="price">৳300</div>
+            <button class="btn" onclick="addToCart('White Sauce Pasta',300)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="images/pasta2.jpg">
+            <div class="price">৳280</div>
+            <button class="btn" onclick="addToCart('Red Sauce Pasta',280)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="images/pasta3.jpg">
+            <div class="price">৳350</div>
+            <button class="btn" onclick="addToCart('Creamy Alfredo Pasta',350)">Add to Cart</button>
+        </div>
+
+    </div>
+
+    <script>
+        function addToCart(name, price) {
+            var cart = JSON.parse(localStorage.getItem("cart"));
+
+            if (!cart) {
+                cart = [];
+            }
+
+            cart.push({ name: name, price: price });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            window.location.href = "cart.html";
+        }
+    </script>
+
+    <footer>
+        <p style="text-align:center;">The Creaminess Is Even Making Me Hungry!</p>
+    </footer>
+
+</body>
+
+</html>

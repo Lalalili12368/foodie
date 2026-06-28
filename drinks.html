@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drinks</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #111;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            text-align: center;
+            background: #1f1f1f;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            margin: 10px;
+            text-decoration: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 225px;
+            object-fit: contain;
+            background: black;
+        }
+
+        .price {
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        button {
+            background: gold;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ffcc00;
+        }
+
+        footer {
+            background: #333;
+            text-align: center;
+            padding: 10px;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="burgers.html">Burgers</a>
+        <a href="pizza.html">Pizza</a>
+        <a href="pasta.html">Pasta</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+
+    <h1>Drinks</h1>
+
+    <div class="grid">
+
+        <div class="card">
+            <img src="images/pic1.jpg">
+            <div class="price">৳50</div>
+            <button onclick="addToCart('Coke',50)">Add</button>
+        </div>
+
+        <div class="card">
+            <img src="images/drink2.jpg">
+            <div class="price">৳80</div>
+            <button onclick="addToCart('Orange Juice',80)">Add</button>
+        </div>
+
+        <div class="card">
+            <img src="images/drink3.jpg">
+            <div class="price">৳100</div>
+            <button onclick="addToCart('Milkshake',100)">Add</button>
+        </div>
+
+    </div>
+
+    <script>
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ name, price });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.location.href = "cart.html";
+        }
+    </script>
+
+    <footer>
+        Thirsty? Have a Drink!
+    </footer>
+
+</body>
+
+</html>
